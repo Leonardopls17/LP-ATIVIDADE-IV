@@ -27,7 +27,7 @@ int main()
     struct alunos aluno[5];
     int SomaNotas = 0;
 
-    for (i = 0; i < 2; i++)
+    for (i = 0; i < 5; i++)
     {
         fflush(stdin);
         SomaNotas = 0;
@@ -35,7 +35,7 @@ int main()
         printf("Digite seu nome: ");
         gets(aluno[i].nome);
         printf("Digite sua data de nascimento: ");
-        gets(aluno[i].nome);
+        gets(aluno[i].DataNascimento);
         for (j = 0; j < 2; j++)
         {
             printf("Digite sua %d nota: ", j + 1);
