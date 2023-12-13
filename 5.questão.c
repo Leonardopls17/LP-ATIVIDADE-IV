@@ -1,52 +1,86 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 #include <string.h>
+#include <locale.h>
+#include <ctype.h>
+#include <time.h>
 
-#define MAX_FUNCIONARIOS 100
-
-// Definição da estrutura Funcionario
-struct Funcionario {
-    char nome[50];
-    char cargo[50];
+struct Funcionarios
+{
+    char nome[200];
+    char cargo[200];
     float salario;
 };
 
-// Função para calcular a média salarial dos funcionários com um cargo específico
-float mediaSalarialPorCargo(struct Funcionario funcionarios[], int numFuncionarios, const char* cargo) {
-    float somaSalarios = 0.0;
-    int contador = 0;
+void menu()
+{
 
-    for (int i = 0; i < numFuncionarios; ++i) {
-        if (strcmp(funcionarios[i].cargo, cargo) == 0) {
-            somaSalarios += funcionarios[i].salario;
-            contador++;
-        }
-    }
-
-    if (contador == 0) {
-        printf("Nenhum funcionário com o cargo de %s encontrado.\n", cargo);
-        return 0.0;
-    }
-
-    return somaSalarios / contador;
+    printf("1 ---------- ADICIONAR FUNCIONARIO\n");
+    printf("2 ---------- MOSTAR MÉDIA SALARIO\n");
+    printf("3 ----------   FINALIZAR PROGRAMA\n");
+    printf("\n");
 }
 
-int main() {
-    struct Funcionario funcionarios[MAX_FUNCIONARIOS] = {
-        {"Joao", "Programador", 3000.00},
-        {"Maria", "Gerente", 5000.00},
-        {"Pedro", "Programador", 3500.00},
-        {"Ana", "Analista", 4000.00},
-        // Adicione mais funcionários conforme necessário...
-    };
+void media(float soma, int quantidade)
+{
+    printf("Média: %.2f", soma / (float)(quantidade + 1));
+}
 
-    int numFuncionarios = 4; // Altere de acordo com o número de funcionários inseridos no array
+int main()
+{
 
-    const char cargoBusca[] = "Programador";
-    float mediaSalarioProgramadores = mediaSalarialPorCargo(funcionarios, numFuncionarios, cargoBusca);
+    
+    setlocale(LC_ALL, "portuguese");
+    int posicao = 0;
+    int codigo;
+    struct Funcionarios funcionario[9999];
+    float soma;
+   
 
-    if (mediaSalarioProgramadores > 0.0) {
-        printf("Média salarial dos programadores: R$%.2f\n", mediaSalarioProgramadores);
-    }
+    do
+    {
+        menu();
+        printf("Informe o código desejado: ");
+        scanf("%d", &codigo);
 
+        fflush(stdin);
+        switch (codigo)
+        {
+        case 1:
+            printf("Informe o nome do funcionario: ");
+            gets(funcionario[posicao].nome);
+
+            printf("Informe o cargo do funcionario: ");
+            gets(funcionario[posicao].cargo);
+
+            printf("Informe o salario: ");
+            scanf("%f", funcionario[posicao].salario);
+
+            soma += funcionario[posicao].salario;
+
+            posicao++;
+            break;
+        case 2:
+            media(soma, posicao);
+            break;
+        case 3:
+            sleep(2);
+            printf("Finalizando o sistema\n");
+            sleep(2);
+            printf("Encerrando o sistema\n");
+            sleep(2);
+            limpatela();
+            printf("Sistema encerrado\n");
+            break;
+        default:
+            printf("CÓDIGO INVÁLIDO\nTENTE NOVAMENTE\n");
+            break;
+            sleep(2);
+            limpatela();
+        }
+    } while (codigo != 3);
+
+    getchar();
     return 0;
 }
